@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+  commentapp:
+    image: stanleynguyen/gitcomment_comment
+    ports:
+      - 5000:5000
+    deploy:
+      replicas: 5
+      restart_policy:
+        max_attempts: 3
+        condition: on-failure
+      update_config:
+        parallelism: 3
+        delay: 10s
+    networks:
+      - balance
+
+  memberapp:
+    image: stanleynguyen/gitcomment_member
+    ports:
+      - 5001:5001
+    deploy:
+      replicas: 5
+      restart_policy:
+        max_attempts: 3
+        condition: on-failure
+      update_config:
+        parallelism: 3
+        delay: 10s
+    networks:
+      - balance
+
+  proxy:
+    image: stanleynguyen/gitcomment_proxy
+    ports:
+      - 80:80
+    depends_on:
+      - commentapp
+      - memberapp
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+    networks:
+      - balance
+
+networks:
+  balance:
+    driver: overlay
