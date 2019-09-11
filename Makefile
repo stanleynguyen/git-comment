@@ -1,5 +1,9 @@
 start:
 	docker stack deploy -c docker-compose.yml gitcommentapp
+start_dev:
+	docker-compose -f docker-compose.dev.yml -p gitcommentapp up -d
+rebuild_dev:
+	docker-compose -f docker-compose.dev.yml -p gitcommentapp build
 build: build_comment build_member build_proxy
 build_member:
 	pushd $(shell pwd)/member-app && \
@@ -18,5 +22,7 @@ build_proxy:
 	popd
 stop:
 	docker stack rm gitcommentapp
+stop_dev:
+	docker-compose -f docker-compose.dev.yml -p gitcommentapp down
 viz:
 	docker container run -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock -d dockersamples/visualizer

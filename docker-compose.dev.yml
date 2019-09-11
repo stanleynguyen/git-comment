@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  commentapp:
+    build:
+      context: ./comment-app
+      dockerfile: dev.dockerfile
+    container_name: gitcommentapp_commentapp
+    ports:
+      - 5000:5000
+    volumes:
+      - ./comment-app:/go/src/github.com/stanleynguyen/git-comment/comment-app
+    networks:
+      - balance_dev
+
+  memberapp:
+    build:
+      context: ./member-app
+      dockerfile: dev.dockerfile
+    container_name: gitcommentapp_memberapp
+    ports:
+      - 5001:5001
+    volumes:
+      - ./member-app:/app
+    networks:
+      - balance_dev
+
+  proxy:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    container_name: gitcommentapp_proxy
+    ports:
+      - 80:80
+    depends_on:
+      - commentapp
+      - memberapp
+    networks:
+      - balance_dev
+
+networks:
+  balance_dev:
+    driver: bridge

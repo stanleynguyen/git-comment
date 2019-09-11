@@ -4,12 +4,28 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "nodemonConfig": {
+    "verbose": true,
+    "ignore": [
+      "node_modules"
+    ],
+    "watch": [
+      "src/",
+      "index.js"
+    ],
+    "ext": "mjs js json"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.2"
   }
 }
