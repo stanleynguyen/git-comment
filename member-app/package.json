@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --timeout 120000"
   },
   "nodemonConfig": {
     "verbose": true,
@@ -23,9 +23,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "check-types": "^10.0.0",
+    "express": "^4.17.1",
+    "graphql-request": "^1.8.2"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "chai-sorted": "^0.2.0",
+    "dotenv": "^8.1.0",
+    "mocha": "^6.2.0",
     "nodemon": "^1.19.2"
   }
 }
