@@ -2,6 +2,8 @@ start:
 	docker stack deploy -c docker-compose.yml gitcommentapp
 start_dev:
 	docker-compose -f docker-compose.dev.yml -p gitcommentapp up -d
+start_dev_w_log:
+	docker-compose -f docker-compose.dev.yml -p gitcommentapp up
 rebuild_dev:
 	docker-compose -f docker-compose.dev.yml -p gitcommentapp build
 build: build_comment build_member build_proxy

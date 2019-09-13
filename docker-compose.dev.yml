@@ -10,6 +10,8 @@ services:
       - 5000:5000
     volumes:
       - ./comment-app:/go/src/github.com/stanleynguyen/git-comment/comment-app
+    depends_on:
+      - postgres
     networks:
       - balance_dev
 
@@ -35,6 +37,14 @@ services:
     depends_on:
       - commentapp
       - memberapp
+    networks:
+      - balance_dev
+
+  postgres:
+    image: postgres:alpine
+    container_name: gitcommentapp_postgres
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
     networks:
       - balance_dev
 
